@@ -1,0 +1,75 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/nicholasm95/meyers-ai
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: "meyers-ai"
+nameOverride: ""
+fullnameOverride: "meyers-ai"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  runAsNonRoot: true
+}
+
+service:
+  type: ClusterIP
+  port: 8080
+
+management:
+  port: 8888
+
+ingress:
+  enabled: true
+  className: "haproxy"
+  annotations: {
+    kubernetes.io/tls-acme: "true",
+    cert-manager.io/cluster-issuer: letsencrypt
+  }
+  hosts:
+    - host: meyers-ai-api.nicholasmeyers.be
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: meyers-ai-api-tls
+      hosts:
+        - meyers-ai-api.nicholasmeyers.be
+
+resources:
+  limits:
+    cpu: 400m
+    memory: 750Mi
+  requests:
+    cpu: 200m
+    memory: 512Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+tolerations: []
+
+affinity: {}

@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Setup a S3 bucket store terraform state file to lock state
+
+Resources:
+  TerraformBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: "nicholasmeyers-meyers-ai-prd-terraform-state"
+      VersioningConfiguration:
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+Outputs:
+  TerraformBucket:
+    Description: The S3 bucket name wherefor your terraform statefiles
+    Value: !Ref TerraformBucket
