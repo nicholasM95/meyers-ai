@@ -55,8 +55,21 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <version>0.11.3</version>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <image>
+                        <env>
+                            <BP_JVM_VERSION>25</BP_JVM_VERSION>
+                            <BP_JVM_CDS_ENABLED>true</BP_JVM_CDS_ENABLED>
+                        </env>
+                    </image>
+                </configuration>
             </plugin>
         </plugins>
     </build>
