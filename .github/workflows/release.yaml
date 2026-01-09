@@ -84,12 +84,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         working-directory: ./backend
 
-      - name: Update CHANGELOG.md
+      - name: Update backend CHANGELOG.md
         if: github.ref == 'refs/heads/main'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add CHANGELOG.md
+          git add backend/CHANGELOG.md
           git commit -m "docs(CHANGELOG): Update CHANGELOG.md"
           git push origin main
 
