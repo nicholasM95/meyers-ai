@@ -1,0 +1,102 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - develop
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+env:
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+  JAVA_VERSION: '25'
+  REGISTRY: ghcr.io
+  IMAGE_NAME: nicholasm95/meyers-ai
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Set up JDK
+        uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'graalvm-community'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v5.0.0
+        with:
+          node-version: 24
+
+      - name: Install Semantic Release and plugins
+        run: |
+          npm install semantic-release @semantic-release/exec @semantic-release/changelog @semantic-release/github
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Calculate next version
+        run: |
+          npx semantic-release --dry-run --no-ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SKIP_UPDATE_VERSION_IN_POM: true
+        working-directory: ./backend
+
+      - name: Run tests
+        run: ./mvnw test
+        working-directory: ./backend
+
+      - name: Run install
+        run: ./mvnw install -DskipTests
+        working-directory: ./backend
+
+      - name: Create Docker image
+        run: ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$(cat .image_tag) -pl application -DskipTests -Pnative
+        working-directory: ./backend
+
+      - name: Docker push
+        run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$(cat .image_tag)
+        working-directory: ./backend
+
+      - name: Create Release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: ./backend
+
+      - name: Update CHANGELOG.md
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add CHANGELOG.md
+          git commit -m "docs(CHANGELOG): Update CHANGELOG.md"
+          git push origin main
+
+      - name: Update develop branch
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git fetch origin
+          git checkout develop
+          git merge --ff-only origin/main
+          git push origin develop

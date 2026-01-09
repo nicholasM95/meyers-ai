@@ -3,6 +3,7 @@ package be.nicholasmeyers.meyersai.chat.adpater.controller;
 import be.nicholasmeyers.meyersai.chat.domain.ChatMessageCreateRequest;
 import be.nicholasmeyers.meyersai.chat.usecase.SendChatMessageUseCase;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/chat")
+@CrossOrigin(origins = "*")
 public class ChatController {
 
     private final SendChatMessageUseCase sendChatMessageUseCase;

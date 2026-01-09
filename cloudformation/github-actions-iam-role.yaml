@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: IAM role to assume in GitHub Actions pipeline
+
+Parameters:
+  RoleName:
+    Type: String
+  GitHubOrganization:
+    Type: String
+  GitHubRepository:
+    Type: String
+  GitHubActionsOIDCProviderARN:
+    Type: String
+
+Resources:
+  GitHubActionsIAMRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Ref RoleName
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Federated:
+                - !Ref GitHubActionsOIDCProviderARN
+            Action:
+              - sts:AssumeRoleWithWebIdentity
+            Condition:
+              StringLike:
+                token.actions.githubusercontent.com:sub: !Sub repo:${GitHubOrganization}/${GitHubRepository}:*
+              StringEquals:
+                token.actions.githubusercontent.com:aud: sts.amazonaws.com
+      ManagedPolicyArns:
+        - arn:aws:iam::896918338968:policy/GitHubActionPolicy
