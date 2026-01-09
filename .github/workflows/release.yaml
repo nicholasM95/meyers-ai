@@ -66,6 +66,10 @@ jobs:
         run: ./mvnw test
         working-directory: ./backend
 
+      - name: Run install
+        run: ./mvnw install -DskipTests
+        working-directory: ./backend
+
       - name: Create Docker image
         run: ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$(cat .image_tag) -pl application -DskipTests -Pnative
         working-directory: ./backend
