@@ -29,12 +29,6 @@
         </dependency>
 
         <dependency>
-            <groupId>be.nicholasmeyers</groupId>
-            <artifactId>chat-adapter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
@@ -42,6 +36,12 @@
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-tracing-bridge-brave</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>be.nicholasmeyers</groupId>
+            <artifactId>chat-adapter</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
