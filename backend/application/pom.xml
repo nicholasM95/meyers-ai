@@ -67,9 +67,11 @@
                         <env>
                             <BP_JVM_VERSION>25</BP_JVM_VERSION>
                             <BP_JVM_CDS_ENABLED>true</BP_JVM_CDS_ENABLED>
-                            <BP_NATIVE_IMAGE_BUILD_ARGUMENTS>-march=compatibility --initialize-at-build-time=ch.qos.logback.classic.Logger</BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
-                            <BP_NATIVE_IMAGE_ARGS>--initialize-at-build-time=ch.qos.logback.classic.LoggerContext -H:+ReportExceptionStackTraces</BP_NATIVE_IMAGE_ARGS>
-
+                            <BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
+                                -march=compatibility
+                                --initialize-at-build-time=ch.qos.logback.classic.Logger
+                                --initialize-at-build-time=ch.qos.logback.classic.LoggerContext
+                            </BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
                         </env>
                     </image>
                 </configuration>
