@@ -69,7 +69,7 @@
                             <BP_JVM_CDS_ENABLED>true</BP_JVM_CDS_ENABLED>
                             <BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
                                 -march=compatibility
-                                --initialize-at-build-time=ch.qos.logback
+                                --initialize-at-run-time=ch.qos.logback
                                 --initialize-at-run-time=io.grpc.netty.shaded
                             </BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
                         </env>
