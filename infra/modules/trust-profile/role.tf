@@ -29,7 +29,7 @@ resource "aws_iam_role" "app_iam_role" {
         }
         Action = "sts:AssumeRoleWithWebIdentity"
         Condition = {
-          ForAnyValue:StringEquals = {
+          "ForAnyValue:StringEquals" = {
           "oidc-discovery.nicholasmeyers.be:aud" = "sts.amazonaws.com"
           }
           StringEquals = {
