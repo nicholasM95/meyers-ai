@@ -1,7 +1,7 @@
 module "trust_profile" {
-  source     = "../modules/trust-profile"
-  name       = var.name
-  namespace  = var.namespace
+  source    = "../modules/trust-profile"
+  name      = var.name
+  namespace = var.namespace
 }
 
 module "application" {
