@@ -7,7 +7,6 @@ import io.spiffe.workloadapi.DefaultWorkloadApiClient;
 import io.spiffe.workloadapi.WorkloadApiClient;
 import org.springframework.ai.bedrock.converse.BedrockChatOptions;
 import org.springframework.ai.bedrock.converse.BedrockProxyChatModel;
-import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +23,7 @@ import software.amazon.awssdk.services.sts.model.AssumeRoleWithWebIdentityRespon
 
 import java.io.IOException;
 import java.util.UUID;
+import java.util.concurrent.Executors;
 
 @Profile("!local")
 @Configuration
@@ -31,6 +31,11 @@ public class BedrockChatConnector {
 
     private final Region region;
     private final StsClient stsClient;
+
+    static {
+        System.setProperty("io.netty.transport.noNative", "true");
+        System.setProperty("io.grpc.netty.shaded.io.netty.transport.noNative", "true");
+    }
 
     public BedrockChatConnector() {
         this.region = Region.EU_WEST_1;
@@ -90,8 +95,15 @@ public class BedrockChatConnector {
 
 
     private String getSvid() {
+        System.setProperty("io.netty.transport.noNative", "true");
+        System.setProperty("io.grpc.netty.shaded.io.netty.transport.noNative", "true");
+
         try {
-            WorkloadApiClient workloadApiClient = DefaultWorkloadApiClient.newClient();
+            DefaultWorkloadApiClient.ClientOptions options = DefaultWorkloadApiClient.ClientOptions.builder()
+                    .executorService(Executors.newCachedThreadPool())
+                    .build();
+
+            WorkloadApiClient workloadApiClient = DefaultWorkloadApiClient.newClient(options);
             JwtSvid svid = workloadApiClient.fetchJwtSvid("sts.amazonaws.com");
             workloadApiClient.close();
             return svid.getToken();
