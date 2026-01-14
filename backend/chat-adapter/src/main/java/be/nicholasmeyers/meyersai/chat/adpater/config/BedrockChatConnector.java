@@ -23,7 +23,7 @@ import software.amazon.awssdk.services.sts.model.AssumeRoleWithWebIdentityRespon
 
 import java.io.IOException;
 import java.util.UUID;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
 
 @Profile("!local")
 @Configuration
@@ -35,6 +35,7 @@ public class BedrockChatConnector {
     static {
         System.setProperty("io.netty.transport.noNative", "true");
         System.setProperty("io.grpc.netty.shaded.io.netty.transport.noNative", "true");
+        System.setProperty("io.grpc.netty.shaded.io.netty.noUnsafe", "true");
     }
 
     public BedrockChatConnector() {
@@ -95,12 +96,9 @@ public class BedrockChatConnector {
 
 
     private String getSvid() {
-        System.setProperty("io.netty.transport.noNative", "true");
-        System.setProperty("io.grpc.netty.shaded.io.netty.transport.noNative", "true");
-
         try {
             DefaultWorkloadApiClient.ClientOptions options = DefaultWorkloadApiClient.ClientOptions.builder()
-                    .executorService(Executors.newCachedThreadPool())
+                    .executorService(ForkJoinPool.commonPool())
                     .build();
 
             WorkloadApiClient workloadApiClient = DefaultWorkloadApiClient.newClient(options);
