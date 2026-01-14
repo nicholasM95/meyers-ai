@@ -1,7 +1,6 @@
 module "trust_profile" {
   source    = "../modules/trust-profile"
-  name      = var.name
-  namespace = var.namespace
+  name      = "var.name"
 }
 
 module "application" {
@@ -11,7 +10,4 @@ module "application" {
   namespace_name    = var.namespace
   helm_path         = "../../application"
   docker_config     = var.docker_config
-  aws_trust_profile = module.trust_profile.aws_trust_profile
-  aws_trust_anchor  = module.trust_profile.aws_trust_anchor
-  aws_role          = module.trust_profile.aws_role
 }
