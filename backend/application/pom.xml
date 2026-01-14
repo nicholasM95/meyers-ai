@@ -71,7 +71,8 @@
                                 -march=compatibility
                                 --initialize-at-run-time=ch.qos.logback
                                 --initialize-at-run-time=io.grpc.netty.shaded.io.netty
-                                -Dio.grpc.netty.shaded.io.netty.transport.noNative=true
+                                --initialize-at-build-time=io.grpc.netty.shaded.io.netty.channel.nio
+                                -Dio.netty.transport.noNative=true
                             </BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
                         </env>
                     </image>
