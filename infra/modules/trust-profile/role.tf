@@ -1,4 +1,4 @@
-resource "aws_iam_managed_policy" "app_policy" {
+resource "aws_iam_policy" "app_policy" {
   name = "MeyersAIPolicy"
 
   policy = jsonencode({
@@ -41,8 +41,7 @@ resource "aws_iam_role" "app_iam_role" {
   })
 }
 
-
 resource "aws_iam_role_policy_attachment" "attach_policy" {
   role       = aws_iam_role.app_iam_role.name
-  policy_arn = aws_iam_managed_policy.app_policy.arn
+  policy_arn = aws_iam_policy.app_policy.arn
 }
