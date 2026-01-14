@@ -32,11 +32,11 @@ public class BedrockChatConnector {
     private final Region region;
     private final StsClient stsClient;
 
-    static {
+    /*static {
         System.setProperty("io.netty.transport.noNative", "true");
         System.setProperty("io.grpc.netty.shaded.io.netty.transport.noNative", "true");
         System.setProperty("io.grpc.netty.shaded.io.netty.noUnsafe", "true");
-    }
+    }*/
 
     public BedrockChatConnector() {
         this.region = Region.EU_WEST_1;
