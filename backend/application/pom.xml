@@ -69,8 +69,7 @@
                             <BP_JVM_CDS_ENABLED>true</BP_JVM_CDS_ENABLED>
                             <BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
                                 -march=compatibility
-                                --initialize-at-build-time=ch.qos.logback.classic.Logger
-                                --initialize-at-build-time=ch.qos.logback.classic.LoggerContext
+                                --initialize-at-build-time=ch.qos.logback
                             </BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
                         </env>
                     </image>
