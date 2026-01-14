@@ -15,7 +15,7 @@
 
     <properties>
         <java.version>25</java.version>
-        <spiffe.version>0.8.12</spiffe.version>
+        <spiffe.version>0.8.15</spiffe.version>
     </properties>
 
     <dependencyManagement>
