@@ -1,6 +1,5 @@
 module "trust_profile" {
   source = "../modules/trust-profile"
-  name   = "var.name"
 }
 
 module "application" {
