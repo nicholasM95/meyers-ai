@@ -11,6 +11,7 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import software.amazon.awssdk.auth.credentials.AnonymousCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
@@ -50,7 +51,8 @@ public class BedrockChatConnector {
     }
 
     @Bean
-    public ChatModel chatClient(BedrockRuntimeClient bedrockClient) {
+    @Primary
+    public ChatModel bedrockProxyChatModel(BedrockRuntimeClient bedrockClient) {
         BedrockChatOptions options = BedrockChatOptions.builder()
                 .model("amazon.titan-text-lite-v1")
                 .build();
