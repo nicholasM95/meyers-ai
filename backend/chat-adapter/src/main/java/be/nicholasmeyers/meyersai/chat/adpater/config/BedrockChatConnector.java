@@ -5,6 +5,10 @@ import io.spiffe.exception.SocketEndpointAddressException;
 import io.spiffe.svid.jwtsvid.JwtSvid;
 import io.spiffe.workloadapi.DefaultWorkloadApiClient;
 import io.spiffe.workloadapi.WorkloadApiClient;
+import org.springframework.ai.bedrock.converse.BedrockChatOptions;
+import org.springframework.ai.bedrock.converse.BedrockProxyChatModel;
+import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -42,6 +46,18 @@ public class BedrockChatConnector {
         return BedrockRuntimeClient.builder()
                 .region(region)
                 .credentialsProvider(createCredentialsProvider())
+                .build();
+    }
+
+    @Bean
+    public ChatModel chatClient(BedrockRuntimeClient bedrockClient) {
+        BedrockChatOptions options = BedrockChatOptions.builder()
+                .model("amazon.titan-text-lite-v1")
+                .build();
+
+        return BedrockProxyChatModel.builder()
+                .bedrockRuntimeClient(bedrockClient)
+                .defaultOptions(options)
                 .build();
     }
 
