@@ -66,6 +66,13 @@
         </dependency>
 
         <dependency>
+            <groupId>io.spiffe</groupId>
+            <artifactId>grpc-netty-linux</artifactId>
+            <version>${spiffe.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
             <groupId>be.nicholasmeyers</groupId>
             <artifactId>chat-usecase</artifactId>
             <version>${project.version}</version>
