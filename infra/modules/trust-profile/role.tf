@@ -10,7 +10,7 @@ resource "aws_iam_policy" "app_policy" {
           "bedrock:InvokeModel",
           "bedrock:InvokeModelWithResponseStream"
         ]
-        Resource = "arn:aws:bedrock:*::foundation-model/amazon.titan-text-lite-v1"
+        Resource = "arn:aws:bedrock:*::foundation-model/amazon.nova-micro-v1:0"
       }
     ]
   })

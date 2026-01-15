@@ -56,10 +56,11 @@ public class BedrockChatConnector {
     @Primary
     public ChatModel bedrockProxyChatModel(BedrockRuntimeClient bedrockClient) {
         BedrockChatOptions options = BedrockChatOptions.builder()
-                .model("amazon.titan-text-lite-v1")
+                .model("amazon.nova-micro-v1:0")
                 .build();
 
         return BedrockProxyChatModel.builder()
+                .region(region)
                 .bedrockRuntimeClient(bedrockClient)
                 .defaultOptions(options)
                 .build();
