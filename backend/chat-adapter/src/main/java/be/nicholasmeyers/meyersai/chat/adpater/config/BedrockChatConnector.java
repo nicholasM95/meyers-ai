@@ -5,6 +5,8 @@ import io.spiffe.exception.SocketEndpointAddressException;
 import io.spiffe.svid.jwtsvid.JwtSvid;
 import io.spiffe.workloadapi.DefaultWorkloadApiClient;
 import io.spiffe.workloadapi.WorkloadApiClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ai.bedrock.converse.BedrockChatOptions;
 import org.springframework.ai.bedrock.converse.BedrockProxyChatModel;
 import org.springframework.ai.chat.model.ChatModel;
@@ -28,6 +30,7 @@ import java.util.UUID;
 @Configuration
 public class BedrockChatConnector {
 
+    private static final Logger log = LoggerFactory.getLogger(BedrockChatConnector.class);
     private final Region region;
     private final StsClient stsClient;
 
@@ -70,6 +73,13 @@ public class BedrockChatConnector {
     private AwsSessionCredentials createAwsSessionCredentials() {
         String roleArn = "arn:aws:iam::896918338968:role/MeyersAIPolicy";
         String token = getSvid();
+        log.info("Created token length: {}", token.length());
+        if (token.contains(".")) {
+            log.info("Token contains dots");
+            String temp = token.substring(token.indexOf(".") + 1);
+            temp = temp.substring(0, temp.indexOf("."));
+            log.info("Token without dots: {}", temp);
+        }
 
         AssumeRoleWithWebIdentityRequest request = AssumeRoleWithWebIdentityRequest.builder()
                 .roleArn(roleArn)
