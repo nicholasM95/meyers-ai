@@ -32,11 +32,11 @@ jobs:
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
       - name: Set up JDK
-        uses: graalvm/setup-graalvm@v1
+        uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: 'graalvm-community'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          distribution: 'liberica'
+          cache: 'maven'
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v5.0.0

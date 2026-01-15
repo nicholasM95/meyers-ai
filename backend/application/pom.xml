@@ -52,31 +52,12 @@
 
     </dependencies>
 
+
     <build>
         <plugins>
             <plugin>
-                <groupId>org.graalvm.buildtools</groupId>
-                <artifactId>native-maven-plugin</artifactId>
-                <version>0.11.3</version>
-            </plugin>
-            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <image>
-                        <env>
-                            <BP_JVM_VERSION>25</BP_JVM_VERSION>
-                            <BP_JVM_CDS_ENABLED>true</BP_JVM_CDS_ENABLED>
-                            <BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
-                                -march=compatibility
-                                --initialize-at-run-time=ch.qos.logback
-                                --initialize-at-run-time=io.grpc.netty.shaded.io.netty
-                                -H:IncludeResources=META-INF/native/.*
-                                -H:ReflectionConfigurationResources=META-INF/native-image/reflection-config.json
-                            </BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
-                        </env>
-                    </image>
-                </configuration>
             </plugin>
         </plugins>
     </build>

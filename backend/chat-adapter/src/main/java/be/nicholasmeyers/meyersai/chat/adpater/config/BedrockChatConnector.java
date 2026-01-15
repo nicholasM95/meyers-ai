@@ -23,7 +23,6 @@ import software.amazon.awssdk.services.sts.model.AssumeRoleWithWebIdentityRespon
 
 import java.io.IOException;
 import java.util.UUID;
-import java.util.concurrent.ForkJoinPool;
 
 @Profile("!local")
 @Configuration
@@ -31,12 +30,6 @@ public class BedrockChatConnector {
 
     private final Region region;
     private final StsClient stsClient;
-
-    /*static {
-        System.setProperty("io.netty.transport.noNative", "true");
-        System.setProperty("io.grpc.netty.shaded.io.netty.transport.noNative", "true");
-        System.setProperty("io.grpc.netty.shaded.io.netty.noUnsafe", "true");
-    }*/
 
     public BedrockChatConnector() {
         this.region = Region.EU_WEST_1;
@@ -97,11 +90,7 @@ public class BedrockChatConnector {
 
     private String getSvid() {
         try {
-            DefaultWorkloadApiClient.ClientOptions options = DefaultWorkloadApiClient.ClientOptions.builder()
-                    .executorService(ForkJoinPool.commonPool())
-                    .build();
-
-            WorkloadApiClient workloadApiClient = DefaultWorkloadApiClient.newClient(options);
+            WorkloadApiClient workloadApiClient = DefaultWorkloadApiClient.newClient();
             JwtSvid svid = workloadApiClient.fetchJwtSvid("sts.amazonaws.com");
             workloadApiClient.close();
             return svid.getToken();
