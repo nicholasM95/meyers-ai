@@ -72,6 +72,7 @@
                                 --initialize-at-run-time=ch.qos.logback
                                 --initialize-at-run-time=io.grpc.netty.shaded.io.netty
                                 -H:IncludeResources=META-INF/native/.*
+                                -H:ReflectionConfigurationFiles=META-INF/native-image/reflect-config.json
                             </BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
                         </env>
                     </image>
