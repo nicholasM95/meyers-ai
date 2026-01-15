@@ -36,6 +36,8 @@ spec:
           env:
             - name: TZ
               value: Europe/Brussels
+            - name: AWS_REGION
+              value: eu-west-1
             - name: SPRING_PROFILES_ACTIVE
               value: prod
             - name: SPIFFE_ENDPOINT_SOCKET

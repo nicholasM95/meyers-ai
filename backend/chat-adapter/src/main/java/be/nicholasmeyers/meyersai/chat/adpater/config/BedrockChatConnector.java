@@ -56,7 +56,7 @@ public class BedrockChatConnector {
     @Primary
     public ChatModel bedrockProxyChatModel(BedrockRuntimeClient bedrockClient) {
         BedrockChatOptions options = BedrockChatOptions.builder()
-                .model("amazon.nova-micro-v1:0")
+                .model("eu.amazon.nova-micro-v1:0")
                 .build();
 
         return BedrockProxyChatModel.builder()

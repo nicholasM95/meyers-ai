@@ -10,7 +10,10 @@ resource "aws_iam_policy" "app_policy" {
           "bedrock:InvokeModel",
           "bedrock:InvokeModelWithResponseStream"
         ]
-        Resource = "arn:aws:bedrock:*::foundation-model/amazon.nova-micro-v1:0"
+        Resource = [
+          "arn:aws:bedrock:*::foundation-model/amazon.nova-micro-v1:0",
+          "arn:aws:bedrock:eu-west-1:*:inference-profile/eu.amazon.nova-micro-v1:0"
+        ]
       }
     ]
   })
