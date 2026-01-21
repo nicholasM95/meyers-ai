@@ -9,7 +9,7 @@ export const sendChatMessage = async (options: ChatStreamOptions): Promise<void>
     const { message, onChunk, onComplete, onError } = options;
 
     try {
-        const response = await fetch('http://localhost:8080/chat/message', {
+        const response = await fetch('https://meyers-ai-api.nicholasmeyers.be/chat/message', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
