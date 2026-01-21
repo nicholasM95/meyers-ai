@@ -74,13 +74,6 @@ public class BedrockChatConnector {
     private AwsSessionCredentials createAwsSessionCredentials() {
         String roleArn = "arn:aws:iam::896918338968:role/MeyersAIPolicy";
         String token = getSvid();
-        log.info("Created token length: {}", token.length());
-        if (token.contains(".")) {
-            log.info("Token contains dots");
-            String temp = token.substring(token.indexOf(".") + 1);
-            temp = temp.substring(0, temp.indexOf("."));
-            log.info("Token without dots: {}", temp);
-        }
 
         AssumeRoleWithWebIdentityRequest request = AssumeRoleWithWebIdentityRequest.builder()
                 .roleArn(roleArn)
