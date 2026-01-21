@@ -61,6 +61,7 @@ public class BedrockChatConnector {
 
         return BedrockProxyChatModel.builder()
                 .region(region)
+                .credentialsProvider(createCredentialsProvider())
                 .bedrockRuntimeClient(bedrockClient)
                 .defaultOptions(options)
                 .build();
