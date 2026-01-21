@@ -32,7 +32,9 @@ public class ChatController {
                     new ChatMessageCreateRequest(createChatMessageRequestResource.message()),
                     chunk -> {
                         try {
-                            emitter.send(chunk);
+                            emitter.send(SseEmitter.event()
+                                    .data(chunk)
+                                    .build());
                         } catch (Exception e) {
                             emitter.completeWithError(e);
                         }
