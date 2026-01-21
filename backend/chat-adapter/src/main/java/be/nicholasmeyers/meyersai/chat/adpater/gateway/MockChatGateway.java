@@ -11,16 +11,22 @@ import java.util.function.Consumer;
 @Component
 public class MockChatGateway implements ChatGateway {
     @Override
-    public void sendChatMessage(ChatMessage message, Consumer<String> onChunk) {
-        String[] words = "This is a response of Meyers-AI".split(" ");
+    public void sendChatMessage(ChatMessage message, Consumer<String> onNext, Runnable onComplete, Consumer<Throwable> onError) {
+        try {
+            String[] words = "This is a response of Meyers-AI".split(" ");
 
-        for (String word : words) {
-            onChunk.accept(word + " ");
-            try {
+            for (String word : words) {
+                onNext.accept(word + " ");
                 Thread.sleep(200);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
             }
+
+            onComplete.run();
+
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            onError.accept(e);
+        } catch (Exception e) {
+            onError.accept(e);
         }
     }
 }

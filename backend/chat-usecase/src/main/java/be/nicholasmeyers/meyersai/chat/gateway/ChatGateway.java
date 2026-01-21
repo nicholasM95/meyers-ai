@@ -6,5 +6,5 @@ import java.util.function.Consumer;
 
 public interface ChatGateway {
 
-    void sendChatMessage(ChatMessage message, Consumer<String> onChunk);
+    void sendChatMessage(ChatMessage message, Consumer<String> onNext, Runnable onComplete, Consumer<Throwable> onError);
 }
