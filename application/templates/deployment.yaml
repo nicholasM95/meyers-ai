@@ -34,8 +34,17 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
+            - name: TZ
+              value: Europe/Brussels
+            - name: AWS_REGION
+              value: eu-west-1
             - name: SPRING_PROFILES_ACTIVE
               value: prod
+            - name: SPIFFE_ENDPOINT_SOCKET
+              value: unix:///spiffe-workload-api/spire-agent.sock
+          volumeMounts:
+            - mountPath: "/spiffe-workload-api"
+              name: spiffe-workload-api
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -63,6 +72,11 @@ spec:
             periodSeconds: 10
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: spiffe-workload-api
+          csi:
+            driver: csi.spiffe.io
+            readOnly: true
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -45,7 +45,7 @@ public class ChatControllerTest {
                             .content(request))
                     .andExpect(status().isOk());
 
-            verify(sendChatMessageUseCase).sendChatMessage(eq(new ChatMessageCreateRequest("Hello world")), any());
+            verify(sendChatMessageUseCase).sendChatMessage(eq(new ChatMessageCreateRequest("Hello world")), any(), any(), any());
         }
     }
 }

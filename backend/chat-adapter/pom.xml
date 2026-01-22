@@ -5,7 +5,7 @@
     <parent>
         <groupId>be.nicholasmeyers</groupId>
         <artifactId>meyers-ai</artifactId>
-        <version>1.0.1</version>
+        <version>1.1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>chat-adapter</artifactId>
@@ -15,13 +15,61 @@
 
     <properties>
         <java.version>25</java.version>
+        <spiffe.version>0.8.15</spiffe.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-bom</artifactId>
+                <version>2.0.0-M1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webmvc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>sts</artifactId>
+            <version>2.41.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-model-bedrock</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-model-bedrock-converse</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.spiffe</groupId>
+            <artifactId>java-spiffe-provider</artifactId>
+            <version>${spiffe.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.spiffe</groupId>
+            <artifactId>java-spiffe-core</artifactId>
+            <version>${spiffe.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.spiffe</groupId>
+            <artifactId>grpc-netty-linux</artifactId>
+            <version>${spiffe.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>

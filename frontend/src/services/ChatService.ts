@@ -9,7 +9,7 @@ export const sendChatMessage = async (options: ChatStreamOptions): Promise<void>
     const { message, onChunk, onComplete, onError } = options;
 
     try {
-        const response = await fetch('http://localhost:8080/chat/message', {
+        const response = await fetch('https://meyers-ai-api.nicholasmeyers.be/chat/message', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -52,17 +52,21 @@ export const sendChatMessage = async (options: ChatStreamOptions): Promise<void>
 
             // Process complete events
             for (const part of parts) {
-                if (!part.trim()) continue;
+                //if (!part.trim()) continue;
 
+                let lastChunkWasSpace = false;
                 // Extract data from SSE format
                 const lines = part.split('\n');
                 for (const line of lines) {
-                    if (line.startsWith('data: ')) {
-                        const data = line.substring(6); // Remove "data: " prefix
-                        onChunk(data);
+                    if (line === 'data:') {
+                        if (!lastChunkWasSpace) {
+                            onChunk(' ');
+                            lastChunkWasSpace = true;
+                        }
                     } else if (line.startsWith('data:')) {
                         const data = line.substring(5); // Remove "data:" prefix (no space)
                         onChunk(data);
+                        lastChunkWasSpace = data.endsWith(' ');
                     }
                 }
             }

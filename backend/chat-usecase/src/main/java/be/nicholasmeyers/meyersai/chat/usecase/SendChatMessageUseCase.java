@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 
 public record SendChatMessageUseCase(ChatGateway chatGateway) {
 
-    public void sendChatMessage(ChatMessageCreateRequest message, Consumer<String> onChunk) {
-        chatGateway.sendChatMessage(ChatMessageFactory.createChatMessage(message), onChunk);
+    public void sendChatMessage(ChatMessageCreateRequest message, Consumer<String> onNext, Runnable onComplete, Consumer<Throwable> onError) {
+        chatGateway.sendChatMessage(ChatMessageFactory.createChatMessage(message), onNext, onComplete, onError);
     }
 }

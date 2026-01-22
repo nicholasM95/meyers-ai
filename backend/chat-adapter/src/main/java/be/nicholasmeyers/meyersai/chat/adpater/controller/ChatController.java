@@ -25,24 +25,23 @@ public class ChatController {
 
     @PostMapping(value = "/message", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter chatMessage(@RequestBody CreateChatMessageRequestResource createChatMessageRequestResource) {
-        SseEmitter emitter = new SseEmitter(300000L); // 5 minutes
+        SseEmitter emitter = new SseEmitter(300000L);
 
         CompletableFuture.runAsync(() -> {
-            try {
-                sendChatMessageUseCase.sendChatMessage(
-                        new ChatMessageCreateRequest(createChatMessageRequestResource.message()),
-                        chunk -> {
-                            try {
-                                emitter.send(chunk);
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
+            sendChatMessageUseCase.sendChatMessage(
+                    new ChatMessageCreateRequest(createChatMessageRequestResource.message()),
+                    chunk -> {
+                        try {
+                            emitter.send(SseEmitter.event()
+                                    .data(chunk)
+                                    .build());
+                        } catch (Exception e) {
+                            emitter.completeWithError(e);
                         }
-                );
-                emitter.complete();
-            } catch (Exception e) {
-                emitter.completeWithError(e);
-            }
+                    },
+                    emitter::complete,
+                    emitter::completeWithError
+            );
         });
 
         return emitter;

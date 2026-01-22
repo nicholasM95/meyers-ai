@@ -32,14 +32,16 @@ public class SendChatMessageUseCaseTest {
         void sendChatMessage() {
             // Given
             ChatMessageCreateRequest chatMessageCreateRequest = new ChatMessageCreateRequest("Hello world");
-            Consumer<String> onChunk = _ -> {};
+            Consumer<String> onNext = _ -> {};
+            Runnable onComplete = () -> {};
+            Consumer<Throwable> onError = _ -> {};
 
             // When
-            sendChatMessageUseCase.sendChatMessage(chatMessageCreateRequest, onChunk);
+            sendChatMessageUseCase.sendChatMessage(chatMessageCreateRequest, onNext, onComplete, onError);
 
             // Then
             ArgumentCaptor<ChatMessage> chatMessageArgumentCaptor = ArgumentCaptor.forClass(ChatMessage.class);
-            verify(chatGateway).sendChatMessage(chatMessageArgumentCaptor.capture(), eq(onChunk));
+            verify(chatGateway).sendChatMessage(chatMessageArgumentCaptor.capture(), eq(onNext), eq(onComplete), eq(onError));
             assertThat(chatMessageArgumentCaptor.getValue().getMessage()).isEqualTo("Hello world");
         }
     }

@@ -11,7 +11,7 @@ fullnameOverride: "meyers-ai"
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: false
+  create: true
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
