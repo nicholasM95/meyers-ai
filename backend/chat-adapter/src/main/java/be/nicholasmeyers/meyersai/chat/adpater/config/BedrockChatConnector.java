@@ -12,6 +12,7 @@ import org.springframework.ai.bedrock.converse.BedrockProxyChatModel;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.ToolCallbackProvider;
+import org.springframework.ai.tool.definition.ToolDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -26,6 +27,7 @@ import software.amazon.awssdk.services.sts.model.AssumeRoleWithWebIdentityReques
 import software.amazon.awssdk.services.sts.model.AssumeRoleWithWebIdentityResponse;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.UUID;
 
 @Profile("!local")
@@ -62,6 +64,12 @@ public class BedrockChatConnector {
     @Primary
     public ChatModel bedrockProxyChatModel(BedrockRuntimeClient bedrockClient) {
         ToolCallback[] tools = toolCallbackProvider.getToolCallbacks();
+
+        log.info("Available tools: {}",
+                Arrays.stream(tools).map(ToolCallback::getToolMetadata).toList());
+
+        log.info("Available tools: {}",
+                Arrays.stream(tools).map(ToolCallback::getToolDefinition).map(ToolDefinition::name).toList());
 
         BedrockChatOptions options = BedrockChatOptions.builder()
                 .model("eu.amazon.nova-micro-v1:0")
