@@ -14,6 +14,7 @@ else
   ./mvnw versions:set -DnewVersion="$VERSION"
   echo "Maven version updated to $VERSION"
   git add pom.xml
+  git add security/pom.xml
   git add chat-adapter/pom.xml
   git add chat-domain/pom.xml
   git add chat-usecase/pom.xml
