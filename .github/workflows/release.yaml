@@ -67,25 +67,11 @@ jobs:
         run: echo "IMAGE_TAG=$(cat .image_tag)" >> $GITHUB_OUTPUT
         working-directory: ./backend
 
-      - name: Debug - check file
-        run: |
-          echo "Does file exist?"
-          ls -la .image_tag || echo "FILE NOT FOUND"
-          
-          echo "File content:"
-          cat .image_tag || echo "CANNOT READ"
-          
-          echo "Content with quotes (check for whitespace/newlines):"
-          cat .image_tag | od -c
-        working-directory: ./backend
-
-
       - name: Build Project
         run: |
           rm -rf dist
           npm install
           npm run build
-          echo ${{ steps.tag.outputs.IMAGE_TAG }}
         working-directory: ./frontend
 
       - name: Upload to Release
@@ -93,12 +79,6 @@ jobs:
         with:
           files: frontend/dist/**
           tag_name: ${{ steps.tag.outputs.IMAGE_TAG }}
-
-      - name: Upload to Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: frontend/dist/**
-          tag_name: $(cat .image_tag)
 
       - name: Run tests
         run: ./mvnw test
