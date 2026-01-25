@@ -1,4 +1,10 @@
-const publish = ['@semantic-release/github'];
+const publish = [
+    ['@semantic-release/github', {
+        assets: [
+            {path: 'frontend-build.zip', label: 'Frontend'}
+        ]
+    }]
+];
 
 const analyzeCommits = [
     {
@@ -46,6 +52,7 @@ const prepare = [
 ]
 
 const config = {
+    tagFormat: '${version}',
     branches: [
         'main',
         {name: 'develop', prerelease: 'SNAPSHOT'}
@@ -54,7 +61,11 @@ const config = {
         '@semantic-release/commit-analyzer',
         '@semantic-release/release-notes-generator',
         '@semantic-release/changelog',
-        '@semantic-release/github',
+        ["@semantic-release/github", {
+            "assets": [
+                {"path": "frontend-build.zip", "label": "Frontend"}
+            ]
+        }],
         ['@semantic-release/exec', {
             'verifyReleaseCmd': './update-version.sh $BRANCH_NAME ${nextRelease.version}',
         }]

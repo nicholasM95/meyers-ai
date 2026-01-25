@@ -50,6 +50,14 @@ jobs:
         run: |
           mkdir -p /home/runner/.kube
           echo $K8S_CONFIG | base64 -d > /home/runner/.kube/config
+          
+      - name: Download frontend build
+        run: gh release download ${{ github.event.inputs.image_tag }} -p "frontend-build.zip"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Unzip frontend
+        run: unzip frontend-build.zip -d frontend-dist
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
