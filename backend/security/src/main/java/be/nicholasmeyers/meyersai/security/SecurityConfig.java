@@ -18,6 +18,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authorize -> {
             authorize.requestMatchers(HttpMethod.GET, "/actuator/health/liveness").permitAll();
             authorize.requestMatchers(HttpMethod.GET, "/actuator/health/readiness").permitAll();
+            authorize.requestMatchers(HttpMethod.POST, "/chat/message").authenticated();
             authorize.anyRequest().denyAll();
         });
         http.oauth2ResourceServer(oauth2 -> {
