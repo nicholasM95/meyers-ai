@@ -3,7 +3,7 @@ module "trust_profile" {
 }
 
 module "application" {
-  source           = "git::https://github.com/nicholasM95/terraform-modules.git//modules/k8s-helm-release?ref=v1.13.0"
+  source           = "git::https://github.com/nicholasM95/terraform-modules.git//modules/k8s-helm-release?ref=v1.13.1"
   image_tag        = var.image_tag
   application_name = var.name
   namespace_name   = var.namespace
@@ -12,7 +12,7 @@ module "application" {
 }
 
 module "static_website" {
-  source                  = "git::https://github.com/nicholasM95/terraform-modules.git//modules/static-website?ref=v1.13.0"
+  source                  = "git::https://github.com/nicholasM95/terraform-modules.git//modules/static-website?ref=v1.13.1"
   domain_name             = "nicholasmeyers.be"
   sub_domain_name         = "ai"
   project_name            = "ai-nicholasmeyers-be"
@@ -24,7 +24,7 @@ module "static_website" {
 }
 
 module "keycloak_client" {
-  source      = "git::https://github.com/nicholasM95/terraform-modules.git//modules/keycloak-client?ref=v1.13.0"
+  source      = "git::https://github.com/nicholasM95/terraform-modules.git//modules/keycloak-client?ref=v1.13.1"
   client_id   = "meyers-ai-frontend"
   client_name = "Meyers AI"
   realm_id    = "nicholasmeyers-public"
