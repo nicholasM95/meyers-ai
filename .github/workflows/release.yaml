@@ -80,20 +80,12 @@ jobs:
         working-directory: ./backend
 
 
-      - name: Get image tag
-        id: tag
-        run: |
-          TAG=$(cat .image_tag | tr -d '\n\r ')
-          echo "Cleaned tag: '$TAG'"
-          echo "IMAAGE_TAG=$TAG" >> $GITHUB_OUTPUT
-        working-directory: ./backend
-
-
       - name: Build Project
         run: |
           rm -rf dist
           npm install
           npm run build
+          echo ${{ steps.tag.outputs.IMAGE_TAG }}
         working-directory: ./frontend
 
       - name: Upload to Release
