@@ -67,6 +67,28 @@ jobs:
         run: echo "IMAGE_TAG=$(cat .image_tag)" >> $GITHUB_OUTPUT
         working-directory: ./backend
 
+      - name: Debug - check file
+        run: |
+          echo "Does file exist?"
+          ls -la .image_tag || echo "FILE NOT FOUND"
+          
+          echo "File content:"
+          cat .image_tag || echo "CANNOT READ"
+          
+          echo "Content with quotes (check for whitespace/newlines):"
+          cat .image_tag | od -c
+        working-directory: ./backend
+
+
+      - name: Get image tag
+        id: tag
+        run: |
+          TAG=$(cat .image_tag | tr -d '\n\r ')
+          echo "Cleaned tag: '$TAG'"
+          echo "IMAAGE_TAG=$TAG" >> $GITHUB_OUTPUT
+        working-directory: ./backend
+
+
       - name: Build Project
         run: |
           rm -rf dist
