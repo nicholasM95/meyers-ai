@@ -1,4 +1,8 @@
-const publish = ['@semantic-release/github'];
+const publish = ['@semantic-release/github', {
+    assets: [
+        {path: 'frontend-build.zip', label: 'Frontend'}
+    ]
+}]
 
 const analyzeCommits = [
     {
