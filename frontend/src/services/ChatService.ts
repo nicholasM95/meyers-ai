@@ -1,3 +1,5 @@
+import {getAuthToken} from "./auth.ts";
+
 export interface ChatStreamOptions {
     message: string;
     onChunk: (chunk: string) => void;
@@ -13,6 +15,7 @@ export const sendChatMessage = async (options: ChatStreamOptions): Promise<void>
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getAuthToken()}`
             },
             body: JSON.stringify({ message }),
         });

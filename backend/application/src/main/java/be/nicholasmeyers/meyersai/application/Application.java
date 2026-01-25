@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
         BedrockTitanEmbeddingAutoConfiguration.class,
         BedrockConverseProxyChatAutoConfiguration.class
 })
-@ComponentScan(basePackages = {"be.nicholasmeyers.meyersai.chat.adpater"})
+@ComponentScan(basePackages = {"be.nicholasmeyers.meyersai.chat.adpater", "be.nicholasmeyers.meyersai.security"})
 public class Application {
 
     static void main(String[] args) {

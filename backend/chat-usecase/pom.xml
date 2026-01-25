@@ -5,17 +5,13 @@
     <parent>
         <groupId>be.nicholasmeyers</groupId>
         <artifactId>meyers-ai</artifactId>
-        <version>1.2.0</version>
+        <version>1.3.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>chat-usecase</artifactId>
 
     <name>chat-usecase</name>
     <description>chat-usecase</description>
-
-    <properties>
-        <java.version>25</java.version>
-    </properties>
 
     <dependencies>
 
