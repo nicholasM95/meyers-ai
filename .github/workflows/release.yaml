@@ -69,10 +69,14 @@ jobs:
           npm run build
         working-directory: ./frontend
 
+      - name: Get image tag
+        id: tag
+        run: echo "IMAGE_TAG=$(cat .image_tag)" >> $GITHUB_OUTPUT
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: frontend-v$(cat .image_tag)
+          name: frontend-v${{ steps.tag.outputs.IMAGE_TAG }}
           path: frontend/dist/
 
       - name: Run tests
