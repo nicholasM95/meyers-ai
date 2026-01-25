@@ -14,7 +14,6 @@
     <description>chat-adapter</description>
 
     <properties>
-        <java.version>25</java.version>
         <spiffe.version>0.8.15</spiffe.version>
     </properties>
 

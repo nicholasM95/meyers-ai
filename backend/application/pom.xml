@@ -13,10 +13,6 @@
     <name>application</name>
     <description>application</description>
 
-    <properties>
-        <java.version>25</java.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -36,6 +32,12 @@
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-tracing-bridge-brave</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>be.nicholasmeyers</groupId>
+            <artifactId>security</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>

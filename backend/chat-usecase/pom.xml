@@ -13,10 +13,6 @@
     <name>chat-usecase</name>
     <description>chat-usecase</description>
 
-    <properties>
-        <java.version>25</java.version>
-    </properties>
-
     <dependencies>
 
         <dependency>
