@@ -62,6 +62,19 @@ jobs:
           SKIP_UPDATE_VERSION_IN_POM: true
         working-directory: ./backend
 
+      - name: Build Project
+        run: |
+          rm -rf dist
+          npm install
+          npm run build
+        working-directory: ./frontend
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-v$(cat .image_tag)
+          path: frontend/dist/
+
       - name: Run tests
         run: ./mvnw test
         working-directory: ./backend
@@ -84,12 +97,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         working-directory: ./backend
 
+
+      - name: Move Changelog
+        run: |
+          mv backend/CHANGELOG.md CHANGELOG.md
+
       - name: Update backend CHANGELOG.md
         if: github.ref == 'refs/heads/main'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add backend/CHANGELOG.md
+          git add .
           git commit -m "docs(CHANGELOG): Update CHANGELOG.md"
           git push origin main
 
