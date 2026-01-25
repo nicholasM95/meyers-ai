@@ -104,7 +104,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add .
+          git add CHANGELOG.md
           git commit -m "docs(CHANGELOG): Update CHANGELOG.md"
           git push origin main
 
