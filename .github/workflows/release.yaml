@@ -95,6 +95,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         working-directory: ./backend
 
+      - name: Debug - check zip location
+        run: |
+          echo "Root:"
+          ls -la *.zip || echo "No zip in root"
+          echo "Frontend:"
+          ls -la frontend/*.zip || echo "No zip in frontend"        
+
       - name: Move Changelog
         run: |
           mv backend/CHANGELOG.md CHANGELOG.md
