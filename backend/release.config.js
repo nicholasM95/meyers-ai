@@ -52,6 +52,7 @@ const prepare = [
 ]
 
 const config = {
+    tagFormat: '${version}',
     branches: [
         'main',
         {name: 'develop', prerelease: 'SNAPSHOT'}
