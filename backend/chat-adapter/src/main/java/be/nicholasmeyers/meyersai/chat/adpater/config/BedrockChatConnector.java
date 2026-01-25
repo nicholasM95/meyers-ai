@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ai.bedrock.converse.BedrockChatOptions;
 import org.springframework.ai.bedrock.converse.BedrockProxyChatModel;
 import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.tool.ToolCallback;
+import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -33,14 +35,18 @@ public class BedrockChatConnector {
     private static final Logger log = LoggerFactory.getLogger(BedrockChatConnector.class);
     private final Region region;
     private final StsClient stsClient;
+    private final ToolCallbackProvider toolCallbackProvider;
 
-    public BedrockChatConnector() {
+
+    public BedrockChatConnector(ToolCallbackProvider toolCallbackProvider) {
         this.region = Region.EU_WEST_1;
 
         stsClient = StsClient.builder()
                 .region(region)
                 .credentialsProvider(AnonymousCredentialsProvider.create())
                 .build();
+
+        this.toolCallbackProvider = toolCallbackProvider;
     }
 
 
@@ -55,8 +61,12 @@ public class BedrockChatConnector {
     @Bean
     @Primary
     public ChatModel bedrockProxyChatModel(BedrockRuntimeClient bedrockClient) {
+        ToolCallback[] tools = toolCallbackProvider.getToolCallbacks();
+
         BedrockChatOptions options = BedrockChatOptions.builder()
                 .model("eu.amazon.nova-micro-v1:0")
+                .temperature(0.0)
+                .toolCallbacks(tools)
                 .build();
 
         return BedrockProxyChatModel.builder()

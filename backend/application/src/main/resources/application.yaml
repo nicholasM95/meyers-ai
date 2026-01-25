@@ -11,6 +11,13 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: https://keycloak.nicholasmeyers.be/realms/nicholasmeyers-public
+  ai:
+    mcp:
+      client:
+        sse:
+          connections:
+            bank-server:
+              url: http://192.168.10.201:8080
 
 management:
   endpoint:
