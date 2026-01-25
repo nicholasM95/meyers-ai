@@ -35,6 +35,9 @@ jobs:
           secrets: |
             github-actions-secret/data/secret K8S_CONFIG | K8S_CONFIG ;
             github-actions-secret/data/secret DOCKER_CONFIG | DOCKER_CONFIG ;
+            github-actions-secret/data/secret KEYCLOAK_URL | KEYCLOAK_URL ;
+            github-actions-secret/data/secret KEYCLOAK_CLIENT_ID | KEYCLOAK_CLIENT_ID ;          
+            github-actions-secret/data/secret KEYCLOAK_CLIENT_SECRET | KEYCLOAK_CLIENT_SECRET ;    
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5.1.1
