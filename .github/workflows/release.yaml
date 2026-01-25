@@ -70,7 +70,7 @@ jobs:
         working-directory: ./frontend
 
       - name: Zip frontend
-        run: zip -r ../frontend-build.zip dist/
+        run: zip -r ../backend/frontend-build.zip dist/
         working-directory: ./frontend
 
       - name: Run tests
@@ -94,13 +94,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         working-directory: ./backend
-
-      - name: Debug - check zip location
-        run: |
-          echo "Root:"
-          ls -la *.zip || echo "No zip in root"
-          echo "Frontend:"
-          ls -la frontend/*.zip || echo "No zip in frontend"        
 
       - name: Move Changelog
         run: |

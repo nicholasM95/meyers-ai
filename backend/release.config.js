@@ -56,7 +56,7 @@ const config = {
         '@semantic-release/changelog',
         ["@semantic-release/github", {
             "assets": [
-                {"path": "../frontend-build.zip", "label": "Frontend"}
+                {"path": "frontend-build.zip", "label": "Frontend"}
             ]
         }],
         ['@semantic-release/exec', {
