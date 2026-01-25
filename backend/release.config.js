@@ -54,7 +54,11 @@ const config = {
         '@semantic-release/commit-analyzer',
         '@semantic-release/release-notes-generator',
         '@semantic-release/changelog',
-        '@semantic-release/github',
+        ["@semantic-release/github", {
+            "assets": [
+                {"path": "../frontend-build.zip", "label": "Frontend"}
+            ]
+        }],
         ['@semantic-release/exec', {
             'verifyReleaseCmd': './update-version.sh $BRANCH_NAME ${nextRelease.version}',
         }]

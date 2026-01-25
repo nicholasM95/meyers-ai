@@ -62,11 +62,6 @@ jobs:
           SKIP_UPDATE_VERSION_IN_POM: true
         working-directory: ./backend
 
-      - name: Get image tag
-        id: tag
-        run: echo "IMAGE_TAG=$(cat .image_tag)" >> $GITHUB_OUTPUT
-        working-directory: ./backend
-
       - name: Build Project
         run: |
           rm -rf dist
@@ -74,11 +69,9 @@ jobs:
           npm run build
         working-directory: ./frontend
 
-      - name: Upload to Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: frontend/dist/**
-          tag_name: ${{ steps.tag.outputs.IMAGE_TAG }}
+      - name: Zip frontend
+        run: zip -r ../frontend-build.zip dist/
+        working-directory: ./frontend
 
       - name: Run tests
         run: ./mvnw test
@@ -101,7 +94,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         working-directory: ./backend
-
 
       - name: Move Changelog
         run: |
