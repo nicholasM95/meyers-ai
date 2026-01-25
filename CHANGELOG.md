@@ -1,20 +1,13 @@
-# [1.2.0](https://github.com/nicholasM95/meyers-ai/compare/v1.1.0...1.2.0) (2026-01-25)
+# [1.3.0](https://github.com/nicholasM95/meyers-ai/compare/1.2.0...1.3.0) (2026-01-25)
 
 
 ### Features
 
-* deploy frontend to aws ([7c5346f](https://github.com/nicholasM95/meyers-ai/commit/7c5346feb939b164555dd8b428b5e383f60ae666))
-
-# [1.1.0](https://github.com/nicholasM95/meyers-ai/compare/v1.0.1...v1.1.0) (2026-01-22)
+* add login in frontend ([d8e93c6](https://github.com/nicholasM95/meyers-ai/commit/d8e93c6d4d3b15c123acfadb6a7425543fa44242))
+* enable spring security in backend ([cce49c8](https://github.com/nicholasM95/meyers-ai/commit/cce49c82b7c1695247cb8a8522d25ef45ff974fa))
 
 
 ### Bug Fixes
 
-* **deps:** update spiffe.version to v0.8.15 ([acdc493](https://github.com/nicholasM95/meyers-ai/commit/acdc493701d1c1d710b50e8430976703ba82c1c4))
-
-
-### Features
-
-* use bedrock ai ([eb6c366](https://github.com/nicholasM95/meyers-ai/commit/eb6c366cebf87044997978b766f8d8ca3146ed65))
-
-## [1.0.1](https://github.com/nicholasM95/meyers-ai/compare/v1.0.0...v1.0.1) (2026-01-09)
+* **deps:** update dependency org.springframework.ai:spring-ai-bom to v2.0.0-m2 ([a017a93](https://github.com/nicholasM95/meyers-ai/commit/a017a931546554659ce4c52ead23848a09037d32))
+* **deps:** update dependency org.springframework.boot:spring-boot-starter-parent to v4.0.2 ([ee1c7ce](https://github.com/nicholasM95/meyers-ai/commit/ee1c7cee5cde64e5ac2978dbfd690ac38743baa7))
