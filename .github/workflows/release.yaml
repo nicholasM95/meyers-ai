@@ -62,16 +62,17 @@ jobs:
           SKIP_UPDATE_VERSION_IN_POM: true
         working-directory: ./backend
 
+      - name: Get image tag
+        id: tag
+        run: echo "IMAGE_TAG=$(cat .image_tag)" >> $GITHUB_OUTPUT
+        working-directory: ./backend
+
       - name: Build Project
         run: |
           rm -rf dist
           npm install
           npm run build
         working-directory: ./frontend
-
-      - name: Get image tag
-        id: tag
-        run: echo "IMAGE_TAG=$(cat ./backend/image_tag)" >> $GITHUB_OUTPUT
 
       - name: Upload to Release
         uses: softprops/action-gh-release@v1
