@@ -1,0 +1,11 @@
+services:
+  localstack:
+    container_name: localstack
+    hostname: localstack
+    image: localstack/localstack:3.0
+    environment:
+      AWS_ACCESS_KEY_ID: foobar
+      AWS_SECRET_ACCESS_KEY: foobar
+      AWS_DEFAULT_REGION: us-east-1
+    ports:
+      - 4566:4566
