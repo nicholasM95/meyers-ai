@@ -4,6 +4,9 @@ import io.modelcontextprotocol.client.McpClient;
 import io.modelcontextprotocol.client.McpSyncClient;
 import io.modelcontextprotocol.client.transport.HttpClientSseClientTransport;
 import io.modelcontextprotocol.spec.McpSchema;
+import org.springframework.ai.mcp.SyncMcpToolCallbackProvider;
+import org.springframework.ai.tool.ToolCallbackProvider;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,6 +22,13 @@ public class McpClientConfig {
 
         return McpClient.sync(transport)
                 .clientInfo(new McpSchema.Implementation("bank-client", "1.0.0"))
+                .build();
+    }
+
+    @Bean
+    public ToolCallbackProvider mcpToolCallbackProvider(@Qualifier("bank-server") McpSyncClient bankServerClient) {
+        return SyncMcpToolCallbackProvider.builder()
+                .mcpClients(bankServerClient)
                 .build();
     }
 
