@@ -64,10 +64,6 @@ public class BedrockChatConnector {
     @Primary
     public ChatModel bedrockProxyChatModel(BedrockRuntimeClient bedrockClient) {
         ToolCallback[] tools = toolCallbackProvider.getToolCallbacks();
-
-        log.info("Available tools: {}",
-                Arrays.stream(tools).map(ToolCallback::getToolMetadata).toList());
-
         log.info("Available tools: {}",
                 Arrays.stream(tools).map(ToolCallback::getToolDefinition).map(ToolDefinition::name).toList());
 

@@ -4,8 +4,7 @@ services:
     hostname: localstack
     image: localstack/localstack:4.13
     environment:
-      AWS_ACCESS_KEY_ID: foobar
-      AWS_SECRET_ACCESS_KEY: foobar
-      AWS_DEFAULT_REGION: us-east-1
+      - SERVICES=bedrock,bedrockruntime
+      - DEBUG=1
     ports:
       - 4566:4566
