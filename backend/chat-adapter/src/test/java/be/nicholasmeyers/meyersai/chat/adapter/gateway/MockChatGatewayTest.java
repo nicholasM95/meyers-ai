@@ -1,4 +1,4 @@
-package be.nicholasmeyers.meyersai.chat.adpater.gateway;
+package be.nicholasmeyers.meyersai.chat.adapter.gateway;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

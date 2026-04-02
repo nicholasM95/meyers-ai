@@ -20,14 +20,13 @@ spring:
       memory:
         repository:
           jdbc:
-            initialize-schema: always
+            initialize-schema: never
 #    mcp:
 #      client:
 #        sse:
 #          connections:
 #            bank-server:
 #              url: https://485c-81-240-46-212.ngrok-free.app
-
 management:
   endpoint:
     health:

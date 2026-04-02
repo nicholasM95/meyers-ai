@@ -1,4 +1,4 @@
-package be.nicholasmeyers.meyersai.chat.adpater.gateway;
+package be.nicholasmeyers.meyersai.chat.adapter.gateway;
 
 import be.nicholasmeyers.meyersai.chat.domain.ChatMessage;
 import be.nicholasmeyers.meyersai.chat.gateway.ChatGateway;

@@ -1,4 +1,4 @@
-package be.nicholasmeyers.meyersai.chat.adpater.config;
+package be.nicholasmeyers.meyersai.chat.adapter.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

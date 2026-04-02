@@ -1,4 +1,4 @@
-package be.nicholasmeyers.meyersai.chat.adpater.config;
+package be.nicholasmeyers.meyersai.chat.adapter.config;
 
 import io.spiffe.exception.JwtSvidException;
 import io.spiffe.exception.SocketEndpointAddressException;
