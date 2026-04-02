@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 @Repository
@@ -32,7 +33,7 @@ public class ChatJDBCRepository implements ChatQueryRepository {
                 """;
         return template.query(
                 query,
-                Map.of("conversation_id", conversationId),
+                Map.of("conversation_id", conversationId.toString()),
                 this::mapRowChatMessageView
         );
     }
@@ -42,8 +43,8 @@ public class ChatJDBCRepository implements ChatQueryRepository {
         String query = "SELECT DISTINCT conversation_id FROM spring_ai_chat_memory";
         return template.getJdbcOperations().queryForList(
                 query,
-                UUID.class
-        );
+                String.class
+        ).stream().filter(Objects::nonNull).map(UUID::fromString).toList();
     }
 
     private ChatMessageView mapRowChatMessageView(ResultSet rs, int rowNum) throws SQLException {

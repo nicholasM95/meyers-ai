@@ -9,10 +9,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: conversation_id
-                  type: uuid
-                  constraints:
-                    primaryKey: true
-                    nullable: false
+                  type: varchar(36)
               - column:
                   name: content
                   type: text
