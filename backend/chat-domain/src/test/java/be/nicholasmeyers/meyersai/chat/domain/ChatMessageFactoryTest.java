@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 
+import java.util.UUID;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -23,6 +25,7 @@ public class ChatMessageFactoryTest {
 
             // Then
             assertThat(chatMessage).isNotNull();
+            assertThat(chatMessage.getConversationId()).isEqualTo(UUID.fromString("fc51906c-6faa-43f0-a33a-08247553cea0"));
             assertThat(chatMessage.getMessage()).isEqualTo("Hello world");
         }
 

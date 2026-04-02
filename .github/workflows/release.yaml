@@ -48,7 +48,7 @@ jobs:
           npm install semantic-release @semantic-release/exec @semantic-release/changelog @semantic-release/github
 
       - name: Log in to the Container registry
-        uses: docker/login-action@0567fa5ae8c9a197cb207537dc5cbb43ca3d803f
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}

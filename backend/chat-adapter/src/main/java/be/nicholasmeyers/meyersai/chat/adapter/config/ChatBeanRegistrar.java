@@ -1,4 +1,4 @@
-package be.nicholasmeyers.meyersai.chat.adpater.config;
+package be.nicholasmeyers.meyersai.chat.adapter.config;
 
 import be.nicholasmeyers.meyersai.chat.usecase.SendChatMessageUseCase;
 import org.jspecify.annotations.NonNull;

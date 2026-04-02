@@ -11,7 +11,7 @@
 
     <groupId>be.nicholasmeyers</groupId>
     <artifactId>meyers-ai</artifactId>
-    <version>1.3.0</version>
+    <version>1.4.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>meyers-ai</name>
@@ -28,5 +28,17 @@
         <module>chat-adapter</module>
         <module>application</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2025.1.1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>

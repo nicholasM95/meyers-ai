@@ -3,14 +3,24 @@ spring:
     name: meyers-ai
   main:
     banner-mode: off
+  datasource:
+    url: jdbc:tc:postgresql:16.3-alpine:///meyersai
   threads:
     virtual:
       enabled: true
+  cloud:
+    vault:
+      enabled: false
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://keycloak.nicholasmeyers.be/realms/nicholasmeyers-public
+          issuer-uri: https://keycloak.nicholasmeyers.be/realms/meyers-prive
+  ai:
+    mcp:
+      client:
+        enabled: false
+
 
 management:
   endpoint:

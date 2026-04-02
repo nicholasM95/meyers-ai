@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: meyers-ai
+  main:
+    banner-mode: off
+  threads:
+    virtual:
+      enabled: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://keycloak.nicholasmeyers.be/realms/meyers-prive
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+  ai:
+    chat:
+      memory:
+        repository:
+          jdbc:
+            initialize-schema: never
+#    mcp:
+#      client:
+#        sse:
+#          connections:
+#            bank-server:
+#              url: https://485c-81-240-46-212.ngrok-free.app
+management:
+  endpoint:
+    health:
+     probes:
+       enabled: true
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+  server:
+    port: 8888

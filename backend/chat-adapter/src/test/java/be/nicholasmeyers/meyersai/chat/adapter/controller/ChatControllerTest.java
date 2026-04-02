@@ -1,4 +1,4 @@
-package be.nicholasmeyers.meyersai.chat.adpater.controller;
+package be.nicholasmeyers.meyersai.chat.adapter.controller;
 
 import be.nicholasmeyers.meyersai.chat.domain.ChatMessageCreateRequest;
 import be.nicholasmeyers.meyersai.chat.usecase.SendChatMessageUseCase;

@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-chat
+      comment: create-table-chat
+      author: nicholasmeyers
+      changes:
+        - createTable:
+            tableName: spring_ai_chat_memory
+            columns:
+              - column:
+                  name: conversation_id
+                  type: varchar(36)
+              - column:
+                  name: content
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: timestamp
+                  type: timestamp
+                  constraints:
+                    nullable: false
