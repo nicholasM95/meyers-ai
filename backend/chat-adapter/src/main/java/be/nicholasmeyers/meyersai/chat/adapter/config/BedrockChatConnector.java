@@ -55,13 +55,13 @@ public class BedrockChatConnector {
     }
 
 
-    @Bean
+    /*@Bean
     public BedrockRuntimeClient bedrockClient() {
         return BedrockRuntimeClient.builder()
                 .region(region)
                 .credentialsProvider(createCredentialsProvider())
                 .build();
-    }
+    }*/
 
     @Bean
     @Primary
