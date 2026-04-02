@@ -36,6 +36,15 @@ module "static_website" {
   web_acl_id              = "arn:aws:wafv2:us-east-1:896918338968:global/webacl/waf-cloudfront/6fea776f-ac4b-4be3-b959-df5acdfe8e35"
 }
 
+module "keycloak_resource_server_meyers-ai-api" {
+  source                          = "git::https://github.com/nicholasM95/terraform-modules.git//modules/keycloak-client-resource-server?ref=v1.14.3"
+  client_id                       = "meyers-ai-api"
+  client_name                     = "Meyers AI API"
+  realm_id                        = "meyers-prive"
+  service_accounts_enabled        = true
+  standard_token_exchange_enabled = true
+}
+
 module "keycloak_client" {
   source      = "git::https://github.com/nicholasM95/terraform-modules.git//modules/keycloak-client?ref=v1.14.3"
   client_id   = "meyers-ai-frontend"
@@ -46,6 +55,6 @@ module "keycloak_client" {
     "https://ai.nicholasmeyers.be"
   ]
   audiences = [
-    "bank-mcp-server"
+    "meyers-ai-api"
   ]
 }
