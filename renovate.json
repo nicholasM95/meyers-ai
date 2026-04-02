@@ -8,5 +8,17 @@
   ],
   "baseBranchPatterns": [
     "develop"
+  ],
+  "packageRules": [
+    {
+      "matchFileNames": [
+        ".github/workflows/**",
+        "infra/prod/**",
+        "infra/modules/**"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "ignoreTests": true
+    }
   ]
 }
