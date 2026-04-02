@@ -24,7 +24,6 @@ import software.amazon.awssdk.auth.credentials.AnonymousCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.AwsSessionCredentials;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeClient;
 import software.amazon.awssdk.services.sts.StsClient;
 import software.amazon.awssdk.services.sts.model.AssumeRoleWithWebIdentityRequest;
 import software.amazon.awssdk.services.sts.model.AssumeRoleWithWebIdentityResponse;
@@ -54,18 +53,9 @@ public class BedrockChatConnector {
         this.toolCallbackProvider = toolCallbackProvider;
     }
 
-
-    /*@Bean
-    public BedrockRuntimeClient bedrockClient() {
-        return BedrockRuntimeClient.builder()
-                .region(region)
-                .credentialsProvider(createCredentialsProvider())
-                .build();
-    }*/
-
     @Bean
     @Primary
-    public ChatModel bedrockProxyChatModel(BedrockRuntimeClient bedrockClient) {
+    public ChatModel bedrockProxyChatModel() {
         ToolCallback[] tools = toolCallbackProvider.getToolCallbacks();
         log.info("Available tools: {}",
                 Arrays.stream(tools).map(ToolCallback::getToolDefinition).map(ToolDefinition::name).toList());
@@ -79,7 +69,6 @@ public class BedrockChatConnector {
         return BedrockProxyChatModel.builder()
                 .region(region)
                 .credentialsProvider(createCredentialsProvider())
-                .bedrockRuntimeClient(bedrockClient)
                 .defaultOptions(options)
                 .build();
     }
