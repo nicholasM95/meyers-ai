@@ -42,6 +42,11 @@ spec:
               value: prod
             - name: SPIFFE_ENDPOINT_SOCKET
               value: unix:///spiffe-workload-api/spire-agent.sock
+            - name: VAULT_URI
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "application.fullname" . }}-secret
+                  key: vault.uri
           volumeMounts:
             - mountPath: "/spiffe-workload-api"
               name: spiffe-workload-api

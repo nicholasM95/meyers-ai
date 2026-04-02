@@ -5,7 +5,7 @@ import {AuthProvider} from "react-oidc-context";
 import ProtectedRoute from "./components/protected-route";
 
 const oidcConfig = {
-    authority: 'https://keycloak.nicholasmeyers.be/realms/nicholasmeyers-public',
+    authority: 'https://keycloak.nicholasmeyers.be/realms/meyers-prive',
     client_id: "meyers-ai-frontend",
     redirect_uri: 'https://ai.nicholasmeyers.be',
     response_type: "code",

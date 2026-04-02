@@ -2,6 +2,19 @@ module "trust_profile" {
   source = "../modules/trust-profile"
 }
 
+module "vault" {
+  source     = "git::https://github.com/nicholasM95/terraform-modules.git//modules/vault?ref=v1.14.3"
+  vault_path = var.name
+}
+
+module "vault_connection" {
+  depends_on                = [module.vault]
+  source                    = "git::https://github.com/nicholasM95/terraform-modules.git//modules/vault-k8s?ref=v1.14.3"
+  vault_path                = var.name
+  service_account_name      = var.name
+  service_account_namespace = var.namespace
+}
+
 module "application" {
   source           = "git::https://github.com/nicholasM95/terraform-modules.git//modules/k8s-helm-release?ref=v1.14.3"
   image_tag        = var.image_tag
@@ -27,7 +40,7 @@ module "keycloak_client" {
   source      = "git::https://github.com/nicholasM95/terraform-modules.git//modules/keycloak-client?ref=v1.14.3"
   client_id   = "meyers-ai-frontend"
   client_name = "Meyers AI"
-  realm_id    = "nicholasmeyers-public"
+  realm_id    = "meyers-prive"
   valid_redirect_uris = [
     "http://localhost:5173",
     "https://ai.nicholasmeyers.be"
