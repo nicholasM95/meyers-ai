@@ -3,20 +3,20 @@ module "trust_profile" {
 }
 
 module "vault" {
-  source     = "git::https://github.com/nicholasM95/terraform-modules.git//modules/vault?ref=v1.14.3"
+  source     = "git::https://github.com/nicholasM95/terraform-modules.git//modules/vault?ref=v1.15.19"
   vault_path = var.name
 }
 
 module "vault_connection" {
   depends_on                = [module.vault]
-  source                    = "git::https://github.com/nicholasM95/terraform-modules.git//modules/vault-k8s?ref=v1.14.3"
+  source                    = "git::https://github.com/nicholasM95/terraform-modules.git//modules/vault-k8s?ref=v1.15.19"
   vault_path                = var.name
   service_account_name      = var.name
   service_account_namespace = var.namespace
 }
 
 module "application" {
-  source           = "git::https://github.com/nicholasM95/terraform-modules.git//modules/k8s-helm-release?ref=v1.14.3"
+  source           = "git::https://github.com/nicholasM95/terraform-modules.git//modules/k8s-helm-release?ref=v1.15.19"
   image_tag        = var.image_tag
   application_name = var.name
   namespace_name   = var.namespace
@@ -25,7 +25,7 @@ module "application" {
 }
 
 module "static_website" {
-  source                  = "git::https://github.com/nicholasM95/terraform-modules.git//modules/static-website?ref=v1.14.3"
+  source                  = "git::https://github.com/nicholasM95/terraform-modules.git//modules/static-website?ref=v1.15.19"
   domain_name             = "nicholasmeyers.be"
   sub_domain_name         = "ai"
   project_name            = "ai-nicholasmeyers-be"
@@ -37,7 +37,7 @@ module "static_website" {
 }
 
 module "keycloak_resource_server_meyers-ai-api" {
-  source                          = "git::https://github.com/nicholasM95/terraform-modules.git//modules/keycloak-client-resource-server?ref=v1.14.3"
+  source                          = "git::https://github.com/nicholasM95/terraform-modules.git//modules/keycloak-client-resource-server?ref=v1.15.19"
   client_id                       = "meyers-ai-api"
   client_name                     = "Meyers AI API"
   realm_id                        = "meyers-prive"
@@ -46,7 +46,7 @@ module "keycloak_resource_server_meyers-ai-api" {
 }
 
 module "keycloak_client" {
-  source      = "git::https://github.com/nicholasM95/terraform-modules.git//modules/keycloak-client?ref=v1.14.3"
+  source      = "git::https://github.com/nicholasM95/terraform-modules.git//modules/keycloak-client?ref=v1.15.19"
   client_id   = "meyers-ai-frontend"
   client_name = "Meyers AI"
   realm_id    = "meyers-prive"
