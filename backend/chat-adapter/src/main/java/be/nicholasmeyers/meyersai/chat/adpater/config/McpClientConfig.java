@@ -13,11 +13,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class McpClientConfig {
 
-    @Bean(name = "bank-server")
+    /*@Bean(name = "bank-server")
     public McpSyncClient bankServerMcpClient() {
 
         HttpClientSseClientTransport transport = HttpClientSseClientTransport
-                .builder("http://192.168.10.201:8080")
+                .builder("http://bank-mcp-server.bank-mcp-server.svc.cluster.local:8080")
                 .build();
 
         return McpClient.sync(transport)
@@ -30,6 +30,6 @@ public class McpClientConfig {
         return SyncMcpToolCallbackProvider.builder()
                 .mcpClients(bankServerClient)
                 .build();
-    }
+    }*/
 
 }

@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    vault:
+      enabled: true
+      authentication: kubernetes
+      kubernetes:
+        role: meyers-ai
+        service-account-token-file: /var/run/secrets/kubernetes.io/serviceaccount/token
+      uri: ${VAULT_URI}
+      scheme: http
+      kv:
+        enabled: true
+        backend: meyers-ai
+        default-context: secret
+  config:
+    import: vault://

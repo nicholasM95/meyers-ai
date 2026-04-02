@@ -2,13 +2,15 @@ package be.nicholasmeyers.meyersai.chat.domain;
 
 
 import java.util.Optional;
+import java.util.UUID;
 
-// TODO use the domain, so we can do validation on messages before going to the gateway
 public class ChatMessage {
 
+    private final UUID conversationId;
     private final String message;
 
     protected ChatMessage(ChatMessageCreateRequest chatMessageCreateRequest) {
+        this.conversationId = UUID.fromString("fc51906c-6faa-43f0-a33a-08247553cea0");
         this.message = Optional.ofNullable(chatMessageCreateRequest.message()).orElse("");
     }
 
@@ -19,5 +21,9 @@ public class ChatMessage {
 
     public String getMessage() {
         return message;
+    }
+
+    public UUID getConversationId() {
+        return conversationId;
     }
 }
