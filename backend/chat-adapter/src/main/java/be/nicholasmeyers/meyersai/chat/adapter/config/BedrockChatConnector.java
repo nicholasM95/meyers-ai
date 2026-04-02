@@ -85,34 +85,25 @@ public class BedrockChatConnector {
     }
 
     private AwsCredentialsProvider createCredentialsProvider() {
-        AwsSessionCredentials sessionCredentials = createAwsSessionCredentials();
-        return () -> sessionCredentials;
-    }
+        return () -> {
+            String roleArn = "arn:aws:iam::896918338968:role/MeyersAIPolicy";
+            String token = getSvid();
 
-    private AwsSessionCredentials createAwsSessionCredentials() {
-        String roleArn = "arn:aws:iam::896918338968:role/MeyersAIPolicy";
-        String token = getSvid();
-        if (token.contains(".")) {
-            log.info("Token contains dots");
-            String temp = token.substring(token.indexOf(".") + 1);
-            temp = temp.substring(0, temp.indexOf("."));
-            log.info("Token without dots: {}", temp);
-        }
+            AssumeRoleWithWebIdentityRequest request = AssumeRoleWithWebIdentityRequest.builder()
+                    .roleArn(roleArn)
+                    .roleSessionName(UUID.randomUUID().toString())
+                    .webIdentityToken(token)
+                    .durationSeconds(900)
+                    .build();
 
-        AssumeRoleWithWebIdentityRequest request = AssumeRoleWithWebIdentityRequest.builder()
-                .roleArn(roleArn)
-                .roleSessionName(UUID.randomUUID().toString())
-                .webIdentityToken(token)
-                .durationSeconds(900)
-                .build();
+            AssumeRoleWithWebIdentityResponse response = stsClient.assumeRoleWithWebIdentity(request);
 
-        AssumeRoleWithWebIdentityResponse response = stsClient.assumeRoleWithWebIdentity(request);
-
-        return AwsSessionCredentials.create(
-                response.credentials().accessKeyId(),
-                response.credentials().secretAccessKey(),
-                response.credentials().sessionToken()
-        );
+            return AwsSessionCredentials.create(
+                    response.credentials().accessKeyId(),
+                    response.credentials().secretAccessKey(),
+                    response.credentials().sessionToken()
+            );
+        };
     }
 
     @Bean
@@ -123,15 +114,12 @@ public class BedrockChatConnector {
                 .build();
     }
 
-
     private String getSvid() {
-        try {
-            WorkloadApiClient workloadApiClient = DefaultWorkloadApiClient.newClient();
+        try (WorkloadApiClient workloadApiClient = DefaultWorkloadApiClient.newClient()) {
             JwtSvid svid = workloadApiClient.fetchJwtSvid("sts.amazonaws.com");
-            workloadApiClient.close();
             return svid.getToken();
         } catch (JwtSvidException | SocketEndpointAddressException | IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to fetch SPIFFE SVID", e);
         }
     }
 }
