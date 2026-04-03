@@ -1,0 +1,40 @@
+openapi: 3.0.3
+info:
+  title: Meyers AI Chat API
+  version: 1.0.0
+  description: Chat API AI
+
+servers:
+  - url: http://localhost:8080
+    description: Local development
+
+paths:
+  /chat/message:
+    post:
+      summary: Send a chat message
+      operationId: sendChatMessage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateChatMessageRequest'
+      responses:
+        '200':
+          description: SSE stream
+          content:
+            text/event-stream:
+              schema:
+                type: string
+                format: event-stream
+components:
+  schemas:
+    CreateChatMessageRequest:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: The user's chat message
+          example: "What is kubernetes?"

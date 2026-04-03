@@ -1,21 +1,17 @@
 package be.nicholasmeyers.meyersai.chat.adapter.controller;
 
+import be.nicholasmeyers.meyersai.chat.adapter.resource.CreateChatMessageRequest;
 import be.nicholasmeyers.meyersai.chat.domain.ChatMessageCreateRequest;
 import be.nicholasmeyers.meyersai.chat.usecase.SendChatMessageUseCase;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("/chat")
 @CrossOrigin(origins = "*")
-public class ChatController {
+public class ChatController implements ChatApi {
 
     private final SendChatMessageUseCase sendChatMessageUseCase;
 
@@ -23,13 +19,13 @@ public class ChatController {
         this.sendChatMessageUseCase = sendChatMessageUseCase;
     }
 
-    @PostMapping(value = "/message", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public SseEmitter chatMessage(@RequestBody CreateChatMessageRequestResource createChatMessageRequestResource) {
+    @Override
+    public SseEmitter sendChatMessage(CreateChatMessageRequest createChatMessageRequest) {
         SseEmitter emitter = new SseEmitter(300000L);
 
         CompletableFuture.runAsync(() -> {
             sendChatMessageUseCase.sendChatMessage(
-                    new ChatMessageCreateRequest(createChatMessageRequestResource.message()),
+                    new ChatMessageCreateRequest(createChatMessageRequest.getMessage()),
                     chunk -> {
                         try {
                             emitter.send(SseEmitter.event()
@@ -43,7 +39,6 @@ public class ChatController {
                     emitter::completeWithError
             );
         });
-
         return emitter;
     }
 }
