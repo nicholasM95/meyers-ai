@@ -52,7 +52,7 @@ jobs:
           echo $K8S_CONFIG | base64 -d > /home/runner/.kube/config
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
+        uses: hashicorp/setup-terraform@5e8dbf3c6d9deaf4193ca7a8fb23f2ac83bb6c85 # v4.0.0
 
       - name: Terraform Init
         id: init
