@@ -14,7 +14,7 @@
     <description>chat-adapter</description>
 
     <properties>
-        <spiffe.version>0.8.15</spiffe.version>
+        <spiffe.version>0.8.17</spiffe.version>
     </properties>
 
     <dependencyManagement>
