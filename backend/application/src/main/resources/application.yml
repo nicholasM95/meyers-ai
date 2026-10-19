@@ -27,6 +27,12 @@ spring:
 #          connections:
 #            bank-server:
 #              url: https://485c-81-240-46-212.ngrok-free.app
+chat:
+  provider: openrouter
+  openrouter:
+    base-url: https://openrouter.ai/api
+    model: openai/gpt-oss-20b:free
+    api-key: ${OPENROUTER_API_KEY:}
 management:
   endpoint:
     health:

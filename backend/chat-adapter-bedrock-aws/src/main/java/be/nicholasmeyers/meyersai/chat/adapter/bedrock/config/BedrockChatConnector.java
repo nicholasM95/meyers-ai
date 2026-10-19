@@ -1,4 +1,4 @@
-package be.nicholasmeyers.meyersai.chat.adapter.config;
+package be.nicholasmeyers.meyersai.chat.adapter.bedrock.config;
 
 import io.spiffe.exception.JwtSvidException;
 import io.spiffe.exception.SocketEndpointAddressException;
@@ -9,13 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.bedrock.converse.BedrockChatOptions;
 import org.springframework.ai.bedrock.converse.BedrockProxyChatModel;
-import org.springframework.ai.chat.memory.ChatMemory;
-import org.springframework.ai.chat.memory.MessageWindowChatMemory;
-import org.springframework.ai.chat.memory.repository.jdbc.JdbcChatMemoryRepository;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.tool.definition.ToolDefinition;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -33,6 +31,7 @@ import java.util.Arrays;
 import java.util.UUID;
 
 @Profile("!local")
+@ConditionalOnProperty(name = "chat.provider", havingValue = "bedrock", matchIfMissing = true)
 @Configuration
 public class BedrockChatConnector {
 
@@ -93,14 +92,6 @@ public class BedrockChatConnector {
                     response.credentials().sessionToken()
             );
         };
-    }
-
-    @Bean
-    public ChatMemory chatMemory(JdbcChatMemoryRepository repository) {
-        return MessageWindowChatMemory.builder()
-                .chatMemoryRepository(repository)
-                .maxMessages(20)
-                .build();
     }
 
     private String getSvid() {

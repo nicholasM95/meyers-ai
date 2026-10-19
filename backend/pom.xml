@@ -26,6 +26,8 @@
         <module>chat-domain</module>
         <module>chat-usecase</module>
         <module>chat-adapter</module>
+        <module>chat-adapter-bedrock-aws</module>
+        <module>chat-adapter-openrouter</module>
         <module>application</module>
     </modules>
 
