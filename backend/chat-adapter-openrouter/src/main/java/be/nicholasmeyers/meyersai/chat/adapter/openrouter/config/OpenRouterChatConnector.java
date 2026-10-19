@@ -32,7 +32,7 @@ public class OpenRouterChatConnector {
     public OpenRouterChatConnector(
             @Value("${chat.openrouter.base-url:https://openrouter.ai/api}") String baseUrl,
             @Value("${chat.openrouter.api-key}") String apiKey,
-            @Value("${chat.openrouter.model:openai/gpt-oss-20b:free}") String model,
+            @Value("${chat.openrouter.model:}") String model,
             ToolCallbackProvider toolCallbackProvider) {
         this.baseUrl = baseUrl;
         this.apiKey = apiKey;

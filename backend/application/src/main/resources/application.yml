@@ -31,7 +31,7 @@ chat:
   provider: openrouter
   openrouter:
     base-url: https://openrouter.ai/api
-    model: openai/gpt-oss-20b:free
+    model: google/gemma-4-31b-it:free
     api-key: ${OPENROUTER_API_KEY:}
 management:
   endpoint:
